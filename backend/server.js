@@ -5,9 +5,14 @@ if (process.env.NODE_ENV !== 'production'){
 var express = require('express')
     app     = express()
     cors    = require('cors')
+    mongoose = require('mongoose')
 
 const PORT = process.env.PORT
+const mongoDBURL = process.env.DB_URL
 const chats = require('./data/data')
+
+mongoose.connect(mongoDBURL).then(() => console.log("Connected"))
+.catch(err => console.log(err));
 
 app.use(express.json({limit: '20mb'})); //for parsing incoming requests with JSON Payload
 

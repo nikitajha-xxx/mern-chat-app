@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+/* body, html{
+  height: 100%;
+} */
+.App {
+  min-height: 100vh;
+  display: flex;
+  /* background-image: radial-gradient( circle 732px at -23.9% -25.1%,  rgba(30,39,107,1) 6.1%, rgba(188,104,142,1) 100.2% ); */
+  /* background-image: linear-gradient(to top, #ebc0fd 0%, #d9ded8 100%); */
+  /* background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%); */
+  background-image: linear-gradient(to top, #cd9cf2 0%, #f6f3ff 100%);
+  background-position: center;
+  background-size: cover;
+  
+}
