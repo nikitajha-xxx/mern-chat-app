@@ -4,15 +4,22 @@ if (process.env.NODE_ENV !== 'production'){
 
 var express = require('express')
     app     = express()
+    cors    = require('cors')
 
 const PORT = process.env.PORT
 const chats = require('./data/data')
+
+app.use(express.json({limit: '20mb'})); //for parsing incoming requests with JSON Payload
+
+//Middleware for handling cors policy
+app.use(cors()) //Allows all origins with default of cors(*)
+
 app.get('/',(req,res)=>{
-    res.send("Working")
+    res.state(200).send("Working")
 })
 
 app.get('/api/chat',(req,res)=>{
-    res.send(chats)
+    res.status(200).json({data: chats});
 })
 
 app.get('/api/chat/:id',(req,res)=>{
