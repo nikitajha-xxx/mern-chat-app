@@ -3,3 +3,7 @@
 * CSS with Chakra UI : https://chakra-ui.com/getting-started
 * for background gradient : https://cssgradient.io/gradient-backgrounds/
 * Container : for handling different screen sizes
+* Cloudinary 
+    * Cloud platform to store image
+    * https://medium.com/@aalam-info-solutions-llp/how-to-upload-images-to-cloudinary-with-react-js-ad402f775818
+    * upload an image and gives the url for the image stored on the cloud which we are storing in the db

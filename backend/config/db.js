@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV !== 'production'){
-    require('dotenv').config()
-}
 var mongoose = require('mongoose')
 const mongoDBURL = process.env.DB_URL
 
