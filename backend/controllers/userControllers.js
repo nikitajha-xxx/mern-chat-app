@@ -2,6 +2,7 @@ var asyncHandler = require("express-async-handler") //handler error for async fu
 const User = require('../models/userModel')
 const generateToken = require('../config/generateToken')
 
+//sign up user
 const registerUser = asyncHandler(async(req,res) => {
     const {name,email,password,pic} = req.body
     if(!name || !email || !password){
@@ -36,6 +37,7 @@ const registerUser = asyncHandler(async(req,res) => {
     }
 })
 
+//login
 const authUser = asyncHandler(async(req,res)=>{
     const {email,password} = req.body
     const user = await User.findOne({email})
@@ -53,4 +55,18 @@ const authUser = asyncHandler(async(req,res)=>{
     }
 })
 
-module.exports = {registerUser, authUser}
+//get all users
+///api/user?search=nikita
+const allUsers = asyncHandler(async(req,res)=>{
+    const keyword = req.query.search ? {
+        $or: [ // The $or operator performs a logical OR operation on an array of one or more <expressions> and selects the documents that satisfy at least one of the <expressions>.
+            {name:{$regex:req.query.search, $options:"i"}}, // $regex Provides regular expression capabilities for pattern matching strings in queries
+            {email:{$regex:req.query.search, $options:"i"}} //here the option i means case insensitive
+        ]
+    } : {}
+    console.log(keyword)
+    const users = await User.find(keyword).find({_id:{$ne:req.user._id}}) //search the users without including the current user
+    res.send(users)
+})
+
+module.exports = {registerUser, authUser, allUsers}
