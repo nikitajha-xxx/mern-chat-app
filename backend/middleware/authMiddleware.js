@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel.js");
 const asyncHandler = require("express-async-handler");
 
+//protect is a middleware that will basically verify the user with JWT token sent from the frontend for any api call coming to the backend
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 

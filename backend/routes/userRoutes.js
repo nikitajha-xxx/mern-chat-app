@@ -1,8 +1,7 @@
 var express = require('express')
 var router = express.Router()
-var User = require('../models/userModel')
 var {registerUser,authUser,allUsers}  = require('../controllers/userControllers')
-var {protect} = require('../middleware/authMiddleware') //protect is a middleware that will basically verify the user with JWT token sent from the frontend for any api call coming to the backend
+const {protect} = require('../middleware/authMiddleware') //protect is a middleware that will basically verify the user with JWT token sent from the frontend for any api call coming to the backend
 
 
 //sign up user

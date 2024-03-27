@@ -7,6 +7,7 @@ var express     = require('express')
     cors        = require('cors')
     mongoose    = require('mongoose')
     userRoutes  = require('./routes/userRoutes')
+    chatRoutes  = require('./routes/chatRoutes')
 
 const {notFound, errorHandler} = require('./middleware/errorMiddleware')
 
@@ -25,7 +26,11 @@ app.get('/',(req,res)=>{
     res.state(200).send("Working")
 })
 
+//ALL USER ROUTERS
 app.use('/api/user', userRoutes)
+
+//ALL CHAT ROUTES
+app.use('/api/chat', chatRoutes)
 
 app.use(notFound) //middleware to handle route not found
 app.use(errorHandler) //middleware to handle to throw any kind of error for the requested url
