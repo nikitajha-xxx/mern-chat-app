@@ -162,25 +162,33 @@ const addToGroup = asyncHandler(async(req,res)=>{
 // @access  Protecte
 const removeFromGroup = asyncHandler(async(req,res)=>{
     const {chatId, userId} = req.body
+    
+    var chat = await Chat.findById({_id:chatId})
 
     //check if the requester is the admin
-    var chat = await Chat.findById({_id:chatId})
-    // chat.populate("groupAdmin", )
-    if(req.user._id != chat.groupAdmin){
-        return res
-        .status(400)
-        .send(`${req.user._id}, ${chat.groupAdmin}`)
+    if(!req.user._id.equals(chat.groupAdmin)){
+        return res.status(400).send("Only Group Admin Can Remove a User.")
     }
 
-    const removed = chat.update(
+    const removed = await Chat.updateOne(
+        {_id:chat._id},
         {
             $pull: {users:userId} //The $pull operator removes from an existing array all instances of a value or values that match a specified condition.
-        },
-        {new:true}
+        }
     )
-    .populate("users", "-password")
-    .populate("groupAdmin", "-password")
+    // const removed = await Chat.findByIdAndUpdate(
+    //     chatId,
+    //     {
+    //       $pull: { users: userId },
+    //     },
+    //     {
+    //       new: true,
+    //     }
+    //   )
+    //     .populate("users", "-password")
+    //     .populate("groupAdmin", "-password");
 
+    console.log("what is removed", removed)
     if(!removed){
         res.status(400)
         throw new Error("Chat Not Found")
