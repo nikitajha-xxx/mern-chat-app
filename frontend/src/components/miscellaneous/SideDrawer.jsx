@@ -7,7 +7,7 @@ import { BellIcon, SmallAddIcon, AddIcon } from "@chakra-ui/icons";
 import ProfileModal from './ProfileModal'
 import { useNavigate } from "react-router-dom";
 
-const SideDrawer = () => {
+const LeftPanel = () => {
     const [search,setSearch] = useState("")
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
@@ -86,4 +86,4 @@ const SideDrawer = () => {
     )
 }
 
-export default SideDrawer
+export default LeftPanel
