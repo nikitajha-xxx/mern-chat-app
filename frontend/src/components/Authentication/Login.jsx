@@ -5,7 +5,7 @@ import {Input, InputGroup, InputRightElement} from '@chakra-ui/input'
 import {Button} from '@chakra-ui/button'
 import {ArrowForwardIcon} from '@chakra-ui/icons'
 import {useToast, Spinner} from '@chakra-ui/react'
-import axios, { Axios } from 'axios'
+import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
 const login = () => {

@@ -1,6 +1,6 @@
-import {Container, Box} from "@chakra-ui/react"
+import {Container, Box, Flex} from "@chakra-ui/react"
 import { ChatState } from '../Context/ChatProvider'
-import LeftPanel from '../components/miscellaneous/SideDrawer.jsx'
+import LeftPanel from '../components/miscellaneous/LeftPanel.jsx'
 import MyChats from '../components/MyChats.jsx'
 import ChatBox from '../components/ChatBox.jsx'
 
@@ -9,12 +9,11 @@ const ChatPage = () => {
     return (
         // <Container maxW="xxl" centerContent>
         <div style={{width:"100%"}}>
-            {user && <LeftPanel />}
-            {/* <Box w="84%" p={4}  color={'white'} marginTop={"5%"}>
-                
+            <Flex>
+                {user && <LeftPanel />}
                 {user && <MyChats />}
-                
-            </Box> */}
+                {user && <ChatBox />}
+            </Flex>
         </div>
         // </Container>
         // <div style={{width:"100%"}}>
