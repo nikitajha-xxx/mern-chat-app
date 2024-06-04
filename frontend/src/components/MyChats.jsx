@@ -1,5 +1,5 @@
 import React, { useState,useCallback,useEffect } from 'react'
-import {Box, Button, Tooltip,Drawer, DrawerContent, DrawerHeader, DrawerOverlay,useDisclosure,Text,useToast, Stack} from "@chakra-ui/react"
+import {Box, Button, Tooltip,Drawer, DrawerContent, DrawerHeader, DrawerOverlay,useDisclosure,Text,useToast, Stack, VStack,StackDivider,HStack,Tag,TagLabel } from "@chakra-ui/react"
 import {Input, InputGroup, InputLeftElement} from '@chakra-ui/input'
 import { AddIcon } from '@chakra-ui/icons'
 import {debounce} from 'lodash';
@@ -82,7 +82,7 @@ const MyChats = () => {
     },[])
 
     return (
-        <Box bg="white" w={{base: selectedChat ? "0%" : "70%",sm:"60%", md:"30%" }} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
+        <Box bg="white" w={{base: selectedChat ? "0%" : "70%",sm:"60%", md:"30%" }} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
             <InputGroup padding={5}>
                 <InputLeftElement width={'4.5rem'} m={"22px 2px 2px 0px"}>
                     <i className='fas fa-search' style={{ cursor:"pointer", color:'#8e24aa'}}></i>
@@ -102,38 +102,220 @@ const MyChats = () => {
                 :
                 (
                     <Box
-                        d="flex"
-                        flexDir="column"
-                        p={3}
-                        w="100%"
-                        h="100%"
-                        overflowY={"hidden"}
+                    overflowY="scroll"
+                    sx={{
+                        '&::-webkit-scrollbar': {
+                          width: '16px',
+                          borderRadius: '8px',
+                          backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                          backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                        },
+                      }}
                     >
+                    
                         {
                             chats ? (
-                                <Stack overflowY="scroll">  
+
+                                //                                 <Stack overflowY="auto">  
+                                //     {
+                                //         chats.map((chat)=>(
+                                //             <>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             <Box
+                                //                 onClick={()=>setSelectedChat(chat)}
+                                //                 cursor={"pointer"}
+                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
+                                //                 color={selectedChat === chat ? "white" : "white"}
+                                //                 px={3}
+                                //                 py={2}
+                                //                 borderRadius={"lg"}
+                                //                 key={chat._id}
+                                //                 h={"40px"}
+                                //             >
+                                                
+                                            
+
+                                //             </Box>
+                                //             </>
+                                //         ))
+                                //     }
+                                // </Stack>
+                                <VStack spacing={6} align="flex-start" style={{height:"80vh"}}>
                                     {
-                                        chats.map((chat)=>(
-                                            <Box
+                                    chats.map((chat)=>(
+                                    <Box
                                                 onClick={()=>setSelectedChat(chat)}
                                                 cursor={"pointer"}
-                                                bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                                color={selectedChat === chat ? "white" : "black"}
+                                                bg={selectedChat=== chat ? "#38B2AC" : "black"}
+                                                color={selectedChat === chat ? "black" : "black"}
                                                 px={3}
                                                 py={2}
                                                 borderRadius={"lg"}
                                                 key={chat._id}
+                                                h={"40px"}
                                             >
-
-                                            </Box>
-                                        ))
+                                                </Box>
+                                    ))
                                     }
-                                </Stack>
+                                   
+                                </VStack>
                             ):(
                                 <ChatLoading />
                             )
                         }
-                    </Box>
+                        
+                     </Box>
                 )
             }
         </Box>

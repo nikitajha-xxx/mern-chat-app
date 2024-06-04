@@ -4,18 +4,18 @@ import { Stack,Skeleton } from '@chakra-ui/react'
 
 const ChatLoading = () => {
   return (
-    <Stack>
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
-        <Skeleton height='20px' />
+    <Stack overflowY="scroll">
+        <Skeleton height='40px' />    
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
+        <Skeleton height='40px' />
     </Stack>
   )
 }
