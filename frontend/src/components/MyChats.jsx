@@ -83,6 +83,8 @@ const MyChats = () => {
 
     return (
         <Box bg="white" w={{base: selectedChat ? "0%" : "70%",sm:"60%", md:"30%" }} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
+        
+    
             <InputGroup padding={5}>
                 <InputLeftElement width={'4.5rem'} m={"22px 2px 2px 0px"}>
                     <i className='fas fa-search' style={{ cursor:"pointer", color:'#8e24aa'}}></i>
@@ -118,192 +120,21 @@ const MyChats = () => {
                         {
                             chats ? (
 
-                                //                                 <Stack overflowY="auto">  
-                                //     {
-                                //         chats.map((chat)=>(
-                                //             <>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             <Box
-                                //                 onClick={()=>setSelectedChat(chat)}
-                                //                 cursor={"pointer"}
-                                //                 bg={selectedChat=== chat ? "#38B2AC" : "white"}
-                                //                 color={selectedChat === chat ? "white" : "white"}
-                                //                 px={3}
-                                //                 py={2}
-                                //                 borderRadius={"lg"}
-                                //                 key={chat._id}
-                                //                 h={"40px"}
-                                //             >
-                                                
-                                            
-
-                                //             </Box>
-                                //             </>
-                                //         ))
-                                //     }
-                                // </Stack>
+                               
                                 <VStack spacing={6} align="flex-start" style={{height:"80vh"}}>
                                     {
                                     chats.map((chat)=>(
                                     <Box
                                                 onClick={()=>setSelectedChat(chat)}
                                                 cursor={"pointer"}
-                                                bg={selectedChat=== chat ? "#38B2AC" : "black"}
-                                                color={selectedChat === chat ? "black" : "black"}
-                                                px={3}
-                                                py={2}
+                                                bg={selectedChat=== chat ? "#E1BEE7" : "white"}
+                                                color={selectedChat === chat ? "white" : "black"}
+                                                w={"90%"}
+                                                m="20px 0px 11px 20px"
                                                 borderRadius={"lg"}
                                                 key={chat._id}
-                                                h={"40px"}
+                                                h={"60px"}
+                                                
                                             >
                                                 </Box>
                                     ))
@@ -315,10 +146,11 @@ const MyChats = () => {
                             )
                         }
                         
-                     </Box>
+                    </Box>
                 )
             }
         </Box>
+    
     )
 }
 
