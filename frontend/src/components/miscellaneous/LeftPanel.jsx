@@ -31,7 +31,7 @@ const LeftPanel = () => {
                                 size="md"
                                 cursor="pointer"
                                 name={user.name}
-                                src={user.pic}
+                                src={user.picture}
                             />
                         </ProfileModal>
                     </Center>

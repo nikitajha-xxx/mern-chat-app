@@ -33,7 +33,7 @@ const ProfileModal = ({user,children}) => {
                 {/* <ModalHeader fontSize="40px" fontFamily="Work sans" justifyContent="center" style={{display:"flex"}}>{user.name}</ModalHeader> */}
                 <CloseIcon onClick={onClose}  style={{cursor:"pointer",marginLeft:"92%", marginTop:"4%"}}/>
                 <ModalBody mt={35} flexDir="column" alignItems="center" justifyContent="space-between" style={{display:"flex",paddingBottom:"18%"}}>
-                    <Image borderRadius="full" boxSize="150px" src={user.pic} alt={user.name}/>
+                    <Image borderRadius="full" boxSize="150px" src={user.picture} alt={user.name}/>
                     <Text pt={3} fontSize={{base:"28px", md:"30px"}} fontFamily="Work sans">{user.name}</Text>
                 </ModalBody>
 

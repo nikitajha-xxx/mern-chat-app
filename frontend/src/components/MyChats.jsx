@@ -1,13 +1,15 @@
 import React, { useState,useCallback,useEffect } from 'react'
-import {Box, Button, Tooltip,Drawer, DrawerContent, DrawerHeader, DrawerOverlay,useDisclosure,Text,useToast, Stack, VStack,StackDivider,HStack,Tag,TagLabel } from "@chakra-ui/react"
+import {Box,useToast, VStack,Avatar,Text,Grid,GridItem } from "@chakra-ui/react"
 import {Input, InputGroup, InputLeftElement} from '@chakra-ui/input'
 import { AddIcon } from '@chakra-ui/icons'
 import {debounce} from 'lodash';
 import { ChatState } from "../Context/ChatProvider";
 import ChatLoading from "../ChatLoading.jsx"
+import ProfileModal from './miscellaneous/ProfileModal.jsx';
 import axios from 'axios'
+import { getSender,getSenderUser } from '../config/ChatLogics.jsx';
 
-const MyChats = () => {
+const MyChats = ({}) => {
     const [search, setSearch] = useState("");
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
@@ -17,7 +19,6 @@ const MyChats = () => {
 
     const {user, chats, setChats} = ChatState()
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
     const toast = useToast();
     const timeout = 500
 
@@ -77,6 +78,7 @@ const MyChats = () => {
     const debouncedHandledSearch = useCallback(debounce(handleSearch, timeout),[])
 
     useEffect(()=>{
+        console.log("use effect of mychats",loggedUser, chats)
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
         fetchChats()
     },[])
@@ -118,25 +120,80 @@ const MyChats = () => {
                     >
                     
                         {
-                            chats ? (
+                            loggedUser && chats ? (
 
                                
                                 <VStack spacing={6} align="flex-start" style={{height:"80vh"}}>
                                     {
                                     chats.map((chat)=>(
                                     <Box
-                                                onClick={()=>setSelectedChat(chat)}
-                                                cursor={"pointer"}
-                                                bg={selectedChat=== chat ? "#E1BEE7" : "white"}
-                                                color={selectedChat === chat ? "white" : "black"}
-                                                w={"90%"}
-                                                m="20px 0px 11px 20px"
-                                                borderRadius={"lg"}
-                                                key={chat._id}
-                                                h={"60px"}
-                                                
-                                            >
-                                                </Box>
+                                        onClick={()=>setSelectedChat(chat)}
+                                        cursor={"pointer"}
+                                        bg={selectedChat=== chat ? "#E1BEE7" : "white"}
+                                        color={selectedChat === chat ? "#7b1fa2" : "black"}
+                                        w={"90%"}
+                                        m="20px 0px 11px 20px"
+                                        borderRadius={"lg"}
+                                        key={chat._id}
+                                        h={"60px"}
+                                        _hover={{ bg: "#E1BEE7",color:"#7b1fa2"}}
+                                    >
+                                        {
+                                            !chat.isGroupChat ?
+                                                <Grid
+                                                    h='80px'
+                                                    templateAreas={`"nav main"
+                                                        "nav footer"`}
+                                                        gridTemplateRows={'30px 1fr 20px'}
+                                                        gridTemplateColumns={'60px 1fr'}
+                                                        gap='0'
+                                                        color='blackAlpha.700'
+                                                        fontWeight='bold'
+                                                >
+
+                                                    <GridItem pl='2' area={'nav'}>
+                                                        <ProfileModal user={getSenderUser(loggedUser, chat.users)}>
+                                                            <Avatar
+                                                                ml={"2%"}
+                                                                mt={"12%"}
+                                                                size="md"
+                                                                cursor="pointer"
+                                                                name={getSender(loggedUser, chat.users)}
+                                                                src={getSenderUser(loggedUser, chat.users).picture}
+                                                            />
+                                                        </ProfileModal>
+                                                    </GridItem>
+                                                    <GridItem pt="2" pl="2"  area={'main'}>
+                                                        
+                                                    <Text fontSize="lg" style={{fontWeight:"500"}} color={selectedChat === chat ? "#7b1fa2" : "black"} fontFamily="PT Sans">{getSender(loggedUser, chat.users)}</Text>
+                                                    </GridItem>
+                                                    <GridItem pt="0" pl='2'  area={'footer'}>
+                                                        <Text fontSize="sm" style={{fontWeight:"500"}} color={selectedChat === chat ? "#7b1fa2" : "gray"} fontFamily="PT Sans">This is a testing chat</Text>
+                                                    </GridItem>
+                                                    {/* <GridItem rowSpan={1} colSpan={1} bg={"red"}>
+                                                        <ProfileModal user={getSenderUser(loggedUser,chat.users)}>
+                                                            <Avatar
+                                                                ml={"2%"}
+                                                                mt={"2%"}
+                                                                size="md"
+                                                                cursor="pointer"
+                                                                name={getSender(loggedUser, chat.users)}
+                                                                src={getSenderUser(loggedUser,chat.users).picture}
+                                                            />
+                                                        </ProfileModal>
+                                                    </GridItem>
+                                                    <GridItem colSpan={4} bg={"blue"}>
+                                                        <Text>{getSender(loggedUser,chat.users)}</Text>
+                                                    </GridItem>
+                                                    <GridItem colSpan={4} bg={"orange"}>
+                                                        <Text>This is a testing chat</Text>
+                                                    </GridItem> */}
+                                                </Grid>
+                                            :
+                                                chat.chatName
+                                        }
+                                        
+                                    </Box>
                                     ))
                                     }
                                    
