@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react"
-import { Drawer, DrawerContent, DrawerHeader, DrawerOverlay,Box, Center,Text,Stack, HStack, VStack, Tooltip, Container, Flex } from "@chakra-ui/react"
+import { Box, Center,Text,Stack, HStack, VStack, Tooltip, Container, Flex, Grid, GridItem } from "@chakra-ui/react"
 import { useDisclosure } from "@chakra-ui/hooks";
 import { ChatState } from "../../Context/ChatProvider";
 import { Avatar } from "@chakra-ui/avatar"
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const LeftPanel = () => {
     const navigate = useNavigate()
-    const {user} = ChatState()
+    const {user,tabOption,setTabOption} = ChatState()
     const {isOpen, onOpen, onClose} = useDisclosure()
 
     const logoutHandler = () => {
@@ -35,18 +35,54 @@ const LeftPanel = () => {
                             />
                         </ProfileModal>
                     </Center>
-                    
-                    {/* <Stack direction={['row', 'column']} spacing='24px'>
-                        <Box> */}
+                    </Box>
+
+
+                    <Grid templateRows='repeat(4, 1fr)' mt={95} gap={6} w={{base:"197%",sm:"206%", md:"213%" }} style={{marginLeft:"-57%"}}>
+                        <Tooltip hasArrow label='New Chat' bg='#E1BEE7' color="#7b1fa2">
+                            <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 0 ? "gray.500" : "" }  borderRadius="15" _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
+                                                transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} style={{cursor:"pointer"}} onClick={()=> setTabOption(0)}>
+                                <Center>
+                                    
+                                        <AddIcon boxSize={4}   color='#8e24aa' mt={4}/>
+                            
+                                </Center>
+                            </GridItem>
+                        </Tooltip>
+                        <Tooltip hasArrow label='My Chats' bg='#E1BEE7' color="#7b1fa2">
+                            <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 1 ? "gray.500" : "" } borderRadius="15" style={{cursor:"pointer"}} _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
+                                                transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} onClick={()=> setTabOption(1)}> 
+                                <Center>
+                                    <i className="fa-sharp fa-regular fa-comment" style={{fontSize:"20px", color:'#8e24aa', marginTop:"22%"}}></i>
+                                </Center>
+                            </GridItem>
+                        </Tooltip>
+                        <Tooltip hasArrow label='Notifications' bg='#E1BEE7' color="#7b1fa2">
+                            <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 2 ? "gray.500" : "" } borderRadius="15" style={{cursor:"pointer"}} _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
+                                                transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} onClick={()=> setTabOption(2)}>
+                                <Center>
+                                    <BellIcon boxSize={5} color='#8e24aa'  mt={3}/>
+                                </Center>
+                            </GridItem>
+                        </Tooltip>
+                        <GridItem w='100%' h='12'>
                             <Center>
+                                <Tooltip hasArrow label='Logout' bg='#E1BEE7' color="#7b1fa2">
+                                    <i className="fa-solid fa-power-off" style={{fontSize:"20px", cursor:"pointer", color:'#8e24aa'}} onClick={logoutHandler}></i>
+                                </Tooltip>
+                            </Center>
+                        </GridItem>
+                    </Grid>
+                    
+                    
+                            {/* <Center>
                                 <Box d="flex"  mt={127} >
                                     <Tooltip hasArrow label='New Chat' bg='#E1BEE7' color="#7b1fa2">
                                         <AddIcon boxSize={4} style={{cursor:"pointer"}}  color='#8e24aa'/>
                                     </Tooltip>
                                 </Box>
                             </Center>
-                        {/* </Box>
-                        <Box> */}
+                        
                             <Center>
                                 <Box d="flex"  mt={23} >
                                     <Tooltip hasArrow label='My Chats' bg='#E1BEE7' color="#7b1fa2">
@@ -54,28 +90,25 @@ const LeftPanel = () => {
                                     </Tooltip>
                                 </Box>
                             </Center>
-                        {/* </Box>
-                        <Box> */}
+                      
                             <Center>
                                 <Box d="flex"  mt={23}>
                                     <Tooltip hasArrow label='Notifications' bg='#E1BEE7' color="#7b1fa2">
                                         <BellIcon boxSize={5} color='#8e24aa' style={{cursor:"pointer"}}/>
                                     </Tooltip>
                                 </Box>
-                            </Center>
-                        {/* </Box>
-                        <Box> */}
-                            <Center>
-                                <Box d="flex"  mt={121}>
+                            </Center> */}
+                      
+                            {/* <Center>
+                                <Box d="flex"  mt={"190%"}>
                                     <Tooltip hasArrow label='Logout' bg='#E1BEE7' color="#7b1fa2">
                                         <i className="fa-solid fa-power-off" style={{fontSize:"20px", cursor:"pointer", color:'#8e24aa'}} onClick={logoutHandler}></i>
                                     </Tooltip>
                                 </Box>
-                            </Center>
-                        {/* </Box>
-                    </Stack> */}
+                            </Center> */}
+                        
                     
-                </Box>
+                {/* </Box> */}
             </Box>
             
             

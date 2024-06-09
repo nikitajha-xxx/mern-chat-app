@@ -74,6 +74,7 @@ const login = () => {
 					placeholder='Enter Your Email'
 					onChange={(e)=>setEmail(e.target.value)}
 					value={email}
+					focusBorderColor='#ce8fd9'
 				/>
 			</FormControl>
 			<FormControl id='password'>
@@ -84,6 +85,7 @@ const login = () => {
 							placeholder='Password'
 							onChange={(e)=>setPassword(e.target.value)}
 							value={password}
+							focusBorderColor='#ce8fd9'
 						/>
 						<InputRightElement width={'4.5rem'}>
 							<Button h="1.75rem" size="sm" onClick={handleClick}>

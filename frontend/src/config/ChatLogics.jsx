@@ -3,5 +3,6 @@ export const getSender = (loggedUser,users) => {
 }
 
 export const getSenderUser = (loggedUser,users) => {
+    console.log(users[0]._id,loggedUser._id )
     return users[0]._id === loggedUser._id ? users[1] : users[0];
 }

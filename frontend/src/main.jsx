@@ -20,7 +20,7 @@ const theme = extendTheme({
 		800: "#6A1B9A",
 		900: "#4A148C"
 	  },
-	},
+	}
   })
   
 

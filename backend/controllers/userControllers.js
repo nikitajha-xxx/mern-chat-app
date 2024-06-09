@@ -28,7 +28,7 @@ const registerUser = asyncHandler(async(req,res) => {
             _id:user._id,
             name:user.name,
             email:user.email,
-            pic:user.picture,
+            picture:user.picture,
             token:generateToken(user._id) //generate a JWT Token and send it to the front
         })
     }else{
