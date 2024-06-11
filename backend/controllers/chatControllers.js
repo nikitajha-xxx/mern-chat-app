@@ -55,6 +55,83 @@ const accessChat = asyncHandler(async(req,res)=>{
 //@access          Protected
 const fetchChats = asyncHandler(async(req,res)=>{
     try{
+        if(req.query.search) {
+            let chats = Chat.aggregate([
+                { "$match" : {"users":{"$elemMatch": {"$eq": req.user._id}}}},
+                {
+                     "$lookup":{
+                         "from":"users",
+                         "localField":"users",
+                         "foreignField":"_id",
+                         "pipeline":[
+                            {
+                                 "$match":
+                 { "$expr":
+                    { "$and":
+                       [
+                          { "$regexMatch": {
+        "input": "$name",
+        "regex": req.query.search, 
+        "options": "i",
+      }
+    }
+                       ]
+                    }
+                 }
+                },
+               
+                           
+                        
+                         ],
+                         "as":"user_details"
+                     }
+                 },
+                 {
+                    
+                        "$match":
+        { "$expr":
+           { "$and":
+              [
+                {
+                    "$in":[req.user._id, "$users"]
+                },
+                 {
+                    "$gt":[{ "$size": "$user_details" }, 0 ]
+                 }
+              ]
+           }
+        }
+       
+                 },
+                 {
+                    
+                     $unset: "user_details" 
+                 }
+                
+            ])
+
+            
+            
+            // db.chats.aggregate([
+            //     {"$match" : {"users":{"$elemMatch":{"$eq":user._id}}}},
+            //     {"$unwind":"$users"},
+            //     {
+            //         "$lookup":{
+            //             "from":"users",
+            //             "localField":"users",
+            //             "foreignField":"_id",
+            //             "as":"user"
+            //         }
+            //     },
+            //     {
+            //         "$match" : { "user.name": { "$regex":"pam", "$options": "i" } },
+            //     },{
+            //         "$project" : {"user_id":user._id}
+            //     }
+                
+            // ])
+            //Explore project and addFields
+        }else{
         Chat.find({users:{$elemMatch:{$eq:req.user._id}}})
             .populate("users", "-password")
             .populate("groupAdmin", "-password")
@@ -67,6 +144,7 @@ const fetchChats = asyncHandler(async(req,res)=>{
                 })
                 res.status(200).send(results);
             })
+        }
     }catch(err){
         res.status(400);
         throw new Error(err.message);
