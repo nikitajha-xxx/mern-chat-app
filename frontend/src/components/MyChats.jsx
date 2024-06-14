@@ -47,29 +47,28 @@ const MyChats = ({}) => {
     const handleSearch = async (query) =>{
         // fetch search results from API or database
         console.log("handle search gets called",query)
-        if(query){
-            try{
-                setLoadingChat(true)
-                const config = {
-                    headers:{
-                        Authorization:`Bearer ${user.token}`
-                    }
+        try{
+            setLoadingChat(true)
+            const config = {
+                headers:{
+                    Authorization:`Bearer ${user.token}`
                 }
-                const {data} = await axios.get(`http://localhost:5555/api/chat?search=${query}`,config)
-                setLoadingChat(false)
-                setChats(data)
-            }catch(err){
-                toast({
-                    title:"Error Occured",
-                    description:"Failed to Load the Search Results",
-                    status:"error",
-                    duration:5000,
-                    isClosable:true,
-                    position:"top"
-                })
-                setLoadingChat(false)
             }
+            const {data} = await axios.get(`http://localhost:5555/api/chat?search=${query}`,config)
+            setLoadingChat(false)
+            setChats(data)
+        }catch(err){
+            toast({
+                title:"Error Occured",
+                description:"Failed to Load the Search Results",
+                status:"error",
+                duration:5000,
+                isClosable:true,
+                position:"top"
+            })
+            setLoadingChat(false)
         }
+        
     }
 
     const debouncedHandledSearch = useCallback(debounce(handleSearch, timeout),[])
@@ -105,10 +104,11 @@ const MyChats = ({}) => {
                         sx={{
                             '&::-webkit-scrollbar': {
                             width: '16px',
-                            borderRadius: '8px',
+                            borderRadius: '30px 30px 25px 30px',
                             backgroundColor: `rgba(0, 0, 0, 0.05)`,
                             },
                             '&::-webkit-scrollbar-thumb': {
+                            borderRadius: '30px 30px 35px 30px',
                             backgroundColor: `rgba(0, 0, 0, 0.05)`,
                             },
                         }}
@@ -118,17 +118,21 @@ const MyChats = ({}) => {
                             loggedUser && chats.length > 0 ? (
                                 
                                
-                                <VStack spacing={6} align="flex-start" style={{height:"80vh"}}>
+                                <VStack spacing={1} align="flex-start" style={{height:"80vh"}}>
                                     
                                     {
                                         chats.map((chat)=>(
+                                            <>
+                                            <>
+                                    {/* {console.log("selectedChat === chat",selectedChat._id === chat._id, chat,selectedChat)} */}
+                                    </>
                                             <Box
                                                 onClick={()=>setSelectedChat(chat)}
                                                 cursor={"pointer"}
-                                                bg={selectedChat === chat ? "#E1BEE7" : "white"}
-                                                color={selectedChat === chat ? "#7b1fa2" : "black"}
+                                                bg={ !selectedChat ? "white" : selectedChat._id === chat._id ? "#E1BEE7" : "white"}
+                                                color={ !selectedChat ? "black" : selectedChat._id === chat._id ? "#7b1fa2" : "black"}
                                                 w={"90%"}
-                                                m="20px 0px 11px 20px"
+                                                m="3px 0px 3px 20px"
                                                 borderRadius={"lg"}
                                                 key={chat._id}
                                                 h={"60px"}
@@ -164,7 +168,7 @@ const MyChats = ({}) => {
                                                                 <Text fontSize="lg" style={{fontWeight:"500"}}  fontFamily="PT Sans">{getSender(loggedUser, chat.users)}</Text>
                                                             </GridItem>
                                                             <GridItem pt="0" pl='2'  area={'footer'}>
-                                                                <Text fontSize="sm" style={{fontWeight:"500"}} color={selectedChat === chat ? "#7b1fa2" : "gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">This is a testing chat</Text>
+                                                                <Text fontSize="sm" style={{fontWeight:"500"}} color={!selectedChat ? "gray" : selectedChat._id === chat._id ? "#7b1fa2" : "gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">This is a testing chat</Text>
                                                             </GridItem>
                                                         </Grid>
                                                     :
@@ -172,6 +176,7 @@ const MyChats = ({}) => {
                                                 }
                                                 
                                             </Box>
+                                            </>
                                         ))
                                     }
                                    

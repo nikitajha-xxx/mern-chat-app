@@ -11,7 +11,7 @@ const UserListItem = ({user, handleFunction}) => {
             // bg={selectedChat=== chat ? "#E1BEE7" : "white"}
             // color={selectedChat === chat ? "#7b1fa2" : "black"}
             w={"90%"}
-            m="20px 0px 11px 20px"
+            m="3px 0px 3px 20px"
             borderRadius={"lg"}
             h={"60px"}
             role="group"

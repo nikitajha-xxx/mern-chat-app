@@ -97,6 +97,7 @@ const NewChat = () => {
                             backgroundColor: `rgba(0, 0, 0, 0.05)`,
                             },
                             '&::-webkit-scrollbar-thumb': {
+                            borderRadius: '8px',
                             backgroundColor: `rgba(0, 0, 0, 0.05)`,
                             },
                         }}
@@ -109,7 +110,7 @@ const NewChat = () => {
                                 searchResult.length > 0 ? (
 
                             
-                                <VStack spacing={6} align="flex-start" style={{height:"80vh"}}>
+                                <VStack spacing={1} align="flex-start" style={{height:"80vh"}}>
                                     {
                                         searchResult?.map((user)=>(
                                             <UserListItem 

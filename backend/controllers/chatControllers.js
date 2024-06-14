@@ -56,94 +56,26 @@ const accessChat = asyncHandler(async(req,res)=>{
 const fetchChats = asyncHandler(async(req,res)=>{
     try{
         if(req.query.search) {
-            let chats = Chat.aggregate([
-                { "$match" : {"users":{"$elemMatch": {"$eq": req.user._id}}}},
-                {
-                     "$lookup":{
-                         "from":"users",
-                         "localField":"users",
-                         "foreignField":"_id",
-                         "pipeline":[
-                            {
-                                 "$match":
-                 { "$expr":
-                    { "$and":
-                       [
-                          { "$regexMatch": {
-        "input": "$name",
-        "regex": req.query.search, 
-        "options": "i",
-      }
-    }
-                       ]
-                    }
-                 }
-                },
-               
-                           
-                        
-                         ],
-                         "as":"user_details"
-                     }
-                 },
-                 {
-                    
-                        "$match":
-        { "$expr":
-           { "$and":
-              [
-                {
-                    "$in":[req.user._id, "$users"]
-                },
-                 {
-                    "$gt":[{ "$size": "$user_details" }, 0 ]
-                 }
-              ]
-           }
-        }
-       
-                 },
-                 {
-                    
-                     $unset: "user_details" 
-                 }
-                
+            var chats = await Chat.aggregate([
+                { $match: { users: req.user._id } }, 
+                { $lookup: { from: "users", localField: "users", foreignField: "_id", as: "usersInfo" } }, { $match: { "usersInfo.name": { $regex: req.query.search, $options: "i" } } }, 
+                { $project: { _id: 1, chatName: 1, isGroupChat: 1, latestMessage: 1, groupAdmin: 1, users: { $map: { input: "$usersInfo", as: "userDetail", in: { _id: "$$userDetail._id", name: "$$userDetail.name", email: "$$userDetail.email", picture: "$$userDetail.picture" } } } } }
             ])
-
-            
-            
-            // db.chats.aggregate([
-            //     {"$match" : {"users":{"$elemMatch":{"$eq":user._id}}}},
-            //     {"$unwind":"$users"},
-            //     {
-            //         "$lookup":{
-            //             "from":"users",
-            //             "localField":"users",
-            //             "foreignField":"_id",
-            //             "as":"user"
-            //         }
-            //     },
-            //     {
-            //         "$match" : { "user.name": { "$regex":"pam", "$options": "i" } },
-            //     },{
-            //         "$project" : {"user_id":user._id}
-            //     }
-                
-            // ])
-            //Explore project and addFields
+            res.status(200).send(chats)
         }else{
-        Chat.find({users:{$elemMatch:{$eq:req.user._id}}})
-            .populate("users", "-password")
-            .populate("groupAdmin", "-password")
-            .populate("latestMessage")
-            .sort({updatedAt:-1}) //sort the output from new to old
-            .then(async(results)=>{
-                results = await  User.populate(results,{
-                    path:"latestMessage.sender", 
-                    select:"name pic email"
+            Chat.find({users:{$elemMatch:{$eq:req.user._id}}})
+                .populate("users", "-password")
+                .populate("groupAdmin", "-password")
+                .populate("latestMessage")
+                .sort({updatedAt:-1}) //sort the output from new to old
+                .then(async(results)=>{
+                    console.log(results)
+                    results = await  User.populate(results,{
+                        path:"latestMessage.sender", 
+                        select:"name pic email"
+                    })
+                    res.status(200).send(results);
                 })
-                res.status(200).send(results);
-            })
         }
     }catch(err){
         res.status(400);
