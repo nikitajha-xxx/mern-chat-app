@@ -41,6 +41,8 @@ const NewChat = () => {
                 })
                 setLoadingUsers(false)
             }
+        }else{
+            setSearchResult([])
         }
     }
 
@@ -55,6 +57,7 @@ const NewChat = () => {
             }
 
             const {data} = await axios.post(`http://localhost:5555/api/chat`,{userId}, config)
+            
             setSelectedChat(data)
             setLoadingChats(false)
             setTabOption(1)

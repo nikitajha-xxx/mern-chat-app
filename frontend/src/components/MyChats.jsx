@@ -79,6 +79,8 @@ const MyChats = ({}) => {
         fetchChats()
     },[])
 
+    let d_text = "This is testing"
+
     return (
         <Box bg="white" w={{base: selectedChat ? "0%" : "70%",sm:"60%", md:"30%" }} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
             <InputGroup padding={5}>
@@ -122,10 +124,6 @@ const MyChats = ({}) => {
                                     
                                     {
                                         chats.map((chat)=>(
-                                            <>
-                                            <>
-                                    {/* {console.log("selectedChat === chat",selectedChat._id === chat._id, chat,selectedChat)} */}
-                                    </>
                                             <Box
                                                 onClick={()=>setSelectedChat(chat)}
                                                 cursor={"pointer"}
@@ -140,8 +138,7 @@ const MyChats = ({}) => {
                                                 _hover={{ bg: "#E1BEE7",color:"#7b1fa2", transform: 'translateY(-5px)',
                                                     transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}}
                                             >
-                                                {
-                                                    !chat.isGroupChat ?
+                                                
                                                         <Grid
                                                             h='80px'
                                                             templateAreas={`"nav main"
@@ -153,30 +150,29 @@ const MyChats = ({}) => {
                                                         >
 
                                                             <GridItem pl='2' area={'nav'} onClick={(event)=>{event.stopPropagation()}}>
-                                                                <ProfileModal user={getSenderUser(loggedUser, chat.users)}>
+                                                                <ProfileModal user={chat.isGroupChat ? {name:chat.chatName, picture:chat.picture} : getSenderUser(loggedUser, chat.users)} >
                                                                     <Avatar
                                                                         ml={"2%"}
                                                                         mt={"12%"}
                                                                         size="md"
                                                                         cursor="pointer"
-                                                                        name={getSender(loggedUser, chat.users)}
-                                                                        src={getSenderUser(loggedUser, chat.users).picture}
+                                                                        name={chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}
+                                                                        src={ chat.isGroupChat ? chat.picture : getSenderUser(loggedUser, chat.users).picture}
                                                                     />
                                                                 </ProfileModal>
                                                             </GridItem>
                                                             <GridItem pt="2" pl="2"  area={'main'}>
-                                                                <Text fontSize="lg" style={{fontWeight:"500"}}  fontFamily="PT Sans">{getSender(loggedUser, chat.users)}</Text>
+                                                                <Text fontSize="lg" style={{fontWeight:"500"}}  fontFamily="PT Sans">{chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}</Text>
                                                             </GridItem>
-                                                            <GridItem pt="0" pl='2'  area={'footer'}>
-                                                                <Text fontSize="sm" style={{fontWeight:"500"}} color={!selectedChat ? "gray" : selectedChat._id === chat._id ? "#7b1fa2" : "gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">This is a testing chat</Text>
+                                                            <GridItem pt="0" pl='2'  area={'footer'} style={{whiteSpace:"nowrap", overflowX:"hidden"}}>
+                                                                <Text fontSize="sm" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden"}} color={!selectedChat ? "gray" : selectedChat._id === chat._id ? "#7b1fa2" : "gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">
+                                                                {d_text}
+                                                                </Text>
                                                             </GridItem>
                                                         </Grid>
-                                                    :
-                                                        chat.chatName
-                                                }
+                                                
                                                 
                                             </Box>
-                                            </>
                                         ))
                                     }
                                    

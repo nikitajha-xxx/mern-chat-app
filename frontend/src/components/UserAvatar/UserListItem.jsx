@@ -4,12 +4,12 @@ import ProfileModal from '../miscellaneous/ProfileModal'
 import { ChatState } from '../../Context/ChatProvider'
 
 const UserListItem = ({user, handleFunction}) => {
+    console.log("userListItem gets rendered")
     return (
         <Box
             onClick={handleFunction}
             cursor={"pointer"}
-            // bg={selectedChat=== chat ? "#E1BEE7" : "white"}
-            // color={selectedChat === chat ? "#7b1fa2" : "black"}
+            key={user._id}
             w={"90%"}
             m="3px 0px 3px 20px"
             borderRadius={"lg"}
@@ -43,8 +43,8 @@ const UserListItem = ({user, handleFunction}) => {
                 <GridItem pt="2" pl="2"  area={'main'}>
                     <Text fontSize="lg" style={{fontWeight:"500"}}  fontFamily="PT Sans">{user.name}</Text>
                 </GridItem>
-                <GridItem pt="0" pl='2'  area={'footer'}>
-                    <Text fontSize="sm" style={{fontWeight:"500"}} color={"gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">{user.email}</Text>
+                <GridItem pt="0" pl='2'  area={'footer'} style={{whiteSpace:"nowrap", overflowX:"hidden"}}>
+                    <Text fontSize="sm" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden"}} color={"gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">{user.email}</Text>
                 </GridItem>
             </Grid>
         </Box>

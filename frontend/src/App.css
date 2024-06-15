@@ -86,3 +86,11 @@ body{
   margin-left: 37%;
 }
 
+.circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: auto
+}
+
+

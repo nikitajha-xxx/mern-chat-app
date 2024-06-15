@@ -4,6 +4,7 @@ import LeftPanel from '../components/miscellaneous/LeftPanel.jsx'
 import MyChats from '../components/MyChats.jsx'
 import ChatBox from '../components/ChatBox.jsx'
 import NewChat from "../components/NewChat.jsx"
+import AddGroupChat from "../components/AddGroupChat.jsx"
 
 const ChatPage = () => {
     const {user,tabOption} = ChatState()
@@ -14,6 +15,7 @@ const ChatPage = () => {
                 {user && <LeftPanel />}
                 {user && tabOption == 1 && <MyChats />}
                 {user && tabOption == 0 && <NewChat/>}
+                {user && tabOption == 2 && <AddGroupChat/>}
                 {user && <ChatBox />}
             </Flex>
         </div>
