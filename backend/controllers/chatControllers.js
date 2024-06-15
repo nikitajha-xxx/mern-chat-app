@@ -58,8 +58,8 @@ const fetchChats = asyncHandler(async(req,res)=>{
         if(req.query.search) {
             var chats = await Chat.aggregate([
                 { $match: { users: req.user._id } }, 
-                { $lookup: { from: "users", localField: "users", foreignField: "_id", as: "usersInfo" } }, { $match: { "usersInfo.name": { $regex: req.query.search, $options: "i" } } }, 
-                { $project: { _id: 1, chatName: 1, isGroupChat: 1, latestMessage: 1, groupAdmin: 1, users: { $map: { input: "$usersInfo", as: "userDetail", in: { _id: "$$userDetail._id", name: "$$userDetail.name", email: "$$userDetail.email", picture: "$$userDetail.picture" } } } } }
+                { $lookup: { from: "users", localField: "users", foreignField: "_id", as: "usersInfo" } }, { $match: { $or: [{"usersInfo.name": { $regex: req.query.search, $options: "i" }}, {chatName: {$regex: req.query.search, $options: "i"}}] } }, 
+                { $project: { _id: 1, chatName: 1, isGroupChat: 1, latestMessage: 1, groupAdmin: 1, picture:1, users: { $map: { input: "$usersInfo", as: "userDetail", in: { _id: "$$userDetail._id", name: "$$userDetail.name", email: "$$userDetail.email", picture: "$$userDetail.picture" } } } } }
             ])
             res.status(200).send(chats)
         }else{
@@ -105,7 +105,8 @@ const createGroupChat = asyncHandler(async(req,res)=>{
             chatName:req.body.name,
             users:users,
             isGroupChat:true,
-            groupAdmin:req.user
+            groupAdmin:req.user,
+            picture:req.body.groupPic
         })
         const fullGroupChat = await Chat.findOne({_id:groupChat._id})
             .populate("users", "-password")
