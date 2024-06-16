@@ -40,8 +40,8 @@ const UserListItem = ({user, handleFunction}) => {
                         />
                     </ProfileModal>
                 </GridItem>
-                <GridItem pt="2" pl="2"  area={'main'}>
-                    <Text fontSize="lg" style={{fontWeight:"500"}}  fontFamily="PT Sans">{user.name}</Text>
+                <GridItem pt="2" pl="2"  area={'main'} style={{whiteSpace:"nowrap", overflowX:"hidden",overflowY:"hidden"}}>
+                    <Text fontSize="lg" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden",overflowY:"hidden"}}  fontFamily="PT Sans">{user.name}</Text>
                 </GridItem>
                 <GridItem pt="0" pl='2'  area={'footer'} style={{whiteSpace:"nowrap", overflowX:"hidden"}}>
                     <Text fontSize="sm" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden"}} color={"gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">{user.email}</Text>

@@ -14,7 +14,7 @@ const MyChats = ({}) => {
     const [loadingChat, setLoadingChat] = useState()
     const [loggedUser, setLoggedUser] = useState()
 
-    const {user, chats, setChats,selectedChat,setSelectedChat} = ChatState()
+    const {user, chats, setChats,selectedChat,setSelectedChat,fetchAgain} = ChatState()
 
     const toast = useToast();
     const timeout = 500
@@ -77,12 +77,12 @@ const MyChats = ({}) => {
         console.log("use effect of mychats",loggedUser, chats,selectedChat)
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
         fetchChats()
-    },[])
+    },[fetchAgain])
 
     let d_text = "This is testing"
 
     return (
-        <Box bg="white" w={{base: selectedChat ? "0%" : "70%",sm:"60%", md:"30%" }} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
+        <Box bg="white" w={{base: selectedChat ? "0%" : "70%",sm: selectedChat ? "0%" : "60%", md:"30%" }} display={{base: selectedChat ? "none" : "block",sm: selectedChat ? "none" : "block", md:"block"}} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
             <InputGroup padding={5}>
                 <InputLeftElement width={'4.5rem'} m={"22px 2px 2px 0px"}>
                     <i className='fas fa-search' style={{ cursor:"pointer", color:'#8e24aa'}}></i>
@@ -161,8 +161,8 @@ const MyChats = ({}) => {
                                                                     />
                                                                 </ProfileModal>
                                                             </GridItem>
-                                                            <GridItem pt="2" pl="2"  area={'main'}>
-                                                                <Text fontSize="lg" style={{fontWeight:"500"}}  fontFamily="PT Sans">{chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}</Text>
+                                                            <GridItem pt="2" pl="2"  area={'main'} style={{whiteSpace:"nowrap", overflowX:"hidden",overflowY:"hidden"}}>
+                                                                <Text fontSize="lg" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden",overflowY:"hidden"}}  fontFamily="PT Sans">{chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}</Text>
                                                             </GridItem>
                                                             <GridItem pt="0" pl='2'  area={'footer'} style={{whiteSpace:"nowrap", overflowX:"hidden"}}>
                                                                 <Text fontSize="sm" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden"}} color={!selectedChat ? "gray" : selectedChat._id === chat._id ? "#7b1fa2" : "gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">
