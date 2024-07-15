@@ -3,7 +3,7 @@ import { Badge,Text } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons'
 
 
-const UserBadgeItem = ({user, handleFunction}) => {
+const UserBadgeItem = ({user, handleFunction,basic}) => {
     return (
         <Badge
             px={2}
@@ -15,8 +15,8 @@ const UserBadgeItem = ({user, handleFunction}) => {
             cursor="pointer"
             onClick={handleFunction}
             key={user._id}
-            bg="white"
-            color="#7b1fa2"
+            bg={basic ? "white" : "#7b1fa2"}
+            color={basic ? "#7b1fa2" : "white"}
             style={{textTransform:"none"}}
 
         >

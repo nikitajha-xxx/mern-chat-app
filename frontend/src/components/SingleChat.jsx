@@ -15,13 +15,15 @@ const SingleChat = () => {
                     <ScaleFade initialScale={0.9} in={true}>
                         <HStack spacing={"6px"}>
                             <Box mt={{base:selectedChat ? "6%" : "0%" , sm: selectedChat ? "6%" : "0%", md:"0%"}}  ml={{base:selectedChat ? "3%" : "0%" , sm: selectedChat ? "3%" : "0%", md:"0%"}} display={{base: selectedChat ? "block" : "none",sm: selectedChat ? "block" : "none", md:"none"}}>
-                                <Box bg="#E1BEE7" color="#8e24aa" className='circle' >
-                                    <Tooltip hasArrow label='Go Back' bg='white' color="#7b1fa2">
-                                        <ArrowLeftIcon cursor="pointer" style={{marginLeft:"30%", marginTop:"15%"}}/>
-                                    </Tooltip>
+                            <Tooltip hasArrow label='Go Back' bg='white' color="#7b1fa2">
+                                <Box bg="#E1BEE7" color="#8e24aa" cursor="pointer" className='circle' w={"27px"} h={"26px"} onClick={()=>setSelectedChat(null)}>
+                                    
+                                        <ArrowLeftIcon cursor="pointer" style={{marginLeft:"26%", marginTop:"-3%", fontSize:"13px"}}/>
+                                   
                                 </Box>
+                                </Tooltip>
                             </Box>
-                            <Box ml={{base:selectedChat ? "-8%" : "" , sm: selectedChat ? "-4%" : "", md:"1%"}} mt={{base:selectedChat ? "-4%" : "", sm: selectedChat ? "-1%" : "", md:"0%"}}>
+                            <Box ml={{base:selectedChat ? "-7%" : "" , sm: selectedChat ? "-4%" : "", md:"1%"}} mt={{base:selectedChat ? "-2%" : "", sm: selectedChat ? "0%" : "", md:"0%"}}>
                                 <Text fontSize={{base:selectedChat ? "lg" : "" , sm: selectedChat ? "lg" : "", md:"3xl"}} fontFamily="Work sans" color={"#7b1fa2"} pt={6} px={6} style={{fontWeight:"500"}}>
                                     {selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users)}
                                 </Text>

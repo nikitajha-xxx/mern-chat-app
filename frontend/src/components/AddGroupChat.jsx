@@ -112,6 +112,7 @@ const AddGroupChat = () => {
 	}
 
     const handleSubmit = async ()=>{
+        console.log("selectedUsers", selectedUsers)
         if(!groupChatName || !selectedUsers){
             toast({
                 title:"Please Give a Group Name",
@@ -132,7 +133,7 @@ const AddGroupChat = () => {
             const {data} = await axios.post(`http://localhost:5555/api/chat/group`,
                 {
                     name: groupChatName,
-                    users: JSON.stringify(selectedUsers.map((u)=>u.id)),
+                    users: JSON.stringify(selectedUsers.map((u)=>u._id)),
                     groupPic: groupPic
                 },
                 config
@@ -160,6 +161,7 @@ const AddGroupChat = () => {
             return
         }
     }
+    console.log("selectedUsers1", selectedUsers)
     return (
         <Box bg="white" w={{base: "70%",sm:"60%", md:"30%" }} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
             <ScaleFade initialScale={0.9} in={true}>
@@ -179,6 +181,7 @@ const AddGroupChat = () => {
                                     key={u._id}
                                     user={u}
                                     handleFunction={()=>handleDelete(u)}
+                                    basic={true}
                                 />
                                 
                             ))

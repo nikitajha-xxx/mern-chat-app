@@ -5,6 +5,7 @@ import {debounce} from 'lodash';
 import { ChatState } from "../Context/ChatProvider";
 import ChatLoading from "../ChatLoading.jsx"
 import ProfileModal from './miscellaneous/ProfileModal.jsx';
+import UpdateGroupChatModel from './miscellaneous/UpdateGroupChatModel.jsx';
 import axios from 'axios'
 import { getSender,getSenderUser } from '../config/ChatLogics.jsx';
 
@@ -14,7 +15,7 @@ const MyChats = ({}) => {
     const [loadingChat, setLoadingChat] = useState()
     const [loggedUser, setLoggedUser] = useState()
 
-    const {user, chats, setChats,selectedChat,setSelectedChat,fetchAgain} = ChatState()
+    const {user, chats, setChats,selectedChat,setSelectedChat,fetchAgain,setFetchAgain} = ChatState()
 
     const toast = useToast();
     const timeout = 500
@@ -72,6 +73,15 @@ const MyChats = ({}) => {
     }
 
     const debouncedHandledSearch = useCallback(debounce(handleSearch, timeout),[])
+
+    const getAvatar = (chat) => (<Avatar
+        ml={"2%"}
+        mt={"12%"}
+        size="md"
+        cursor="pointer"
+        name={chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}
+        src={ chat.isGroupChat ? chat.picture : getSenderUser(loggedUser, chat.users).picture}
+    />)
 
     useEffect(()=>{
         console.log("use effect of mychats",loggedUser, chats,selectedChat)
@@ -150,16 +160,18 @@ const MyChats = ({}) => {
                                                         >
 
                                                             <GridItem pl='2' area={'nav'} onClick={(event)=>{event.stopPropagation()}}>
-                                                                <ProfileModal user={chat.isGroupChat ? {name:chat.chatName, picture:chat.picture} : getSenderUser(loggedUser, chat.users)} >
-                                                                    <Avatar
-                                                                        ml={"2%"}
-                                                                        mt={"12%"}
-                                                                        size="md"
-                                                                        cursor="pointer"
-                                                                        name={chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}
-                                                                        src={ chat.isGroupChat ? chat.picture : getSenderUser(loggedUser, chat.users).picture}
-                                                                    />
-                                                                </ProfileModal>
+                                                                {
+                                                                    !chat.isGroupChat ?
+                                                                        <ProfileModal user={getSenderUser(loggedUser, chat.users)} >
+                                                                            {getAvatar(chat)}
+                                                                        </ProfileModal>
+                                                                    :
+                                                                        <UpdateGroupChatModel chat={chat} fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}>
+                                                                            {getAvatar(chat)}
+                                                                        </UpdateGroupChatModel>
+
+                                                                }
+                                                               
                                                             </GridItem>
                                                             <GridItem pt="2" pl="2"  area={'main'} style={{whiteSpace:"nowrap", overflowX:"hidden",overflowY:"hidden"}}>
                                                                 <Text fontSize="lg" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden",overflowY:"hidden"}}  fontFamily="PT Sans">{chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}</Text>

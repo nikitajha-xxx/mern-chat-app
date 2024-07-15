@@ -77,43 +77,6 @@ const LeftPanel = () => {
 
                 </VStack>
 
-                {/* <Grid templateRows='repeat(4, 1fr)' mt={50} gap={3}  style={{marginLeft:"-57%"}}>
-                    <Tooltip hasArrow label='New Chat' bg='#E1BEE7' color="#7b1fa2">
-                        <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 0 ? "gray.500" : "" }  borderRadius="15" _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
-                                            transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} style={{cursor:"pointer"}} onClick={()=> setTabOption(0)}>
-                            <Center>
-                                
-                                    <AddIcon boxSize={4}   color='#8e24aa' mt={4}/>
-                        
-                            </Center>
-                        </GridItem>
-                    </Tooltip>
-                    <Tooltip hasArrow label='My Chats' bg='#E1BEE7' color="#7b1fa2">
-                        <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 1 ? "gray.500" : "" } borderRadius="15" style={{cursor:"pointer"}} _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
-                                            transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} onClick={()=> setTabOption(1)}> 
-                            <Center>
-                                <i className="fa-sharp fa-regular fa-comment" style={{fontSize:"20px", color:'#8e24aa', marginTop:"22%"}}></i>
-                            </Center>
-                        </GridItem>
-                    </Tooltip>
-                    <Tooltip hasArrow label='New Group Chat' bg='#E1BEE7' color="#7b1fa2">
-                        <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 2 ? "gray.500" : "" } borderRadius="15" style={{cursor:"pointer"}} _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
-                                            transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} onClick={()=> setTabOption(2)}> 
-                            <Center>
-                                <i className="fa-solid fa-users-line" style={{fontSize:"20px", color:'#8e24aa', marginTop:"22%"}}></i>
-                            </Center>
-                        </GridItem>
-                    </Tooltip>
-                    <Tooltip hasArrow label='Notifications' bg='#E1BEE7' color="#7b1fa2">
-                        <GridItem w='100%' h='12' borderWidth={"0"} bg={tabOption == 3 ? "gray.500" : "" } borderRadius="15" style={{cursor:"pointer"}} _hover={{ bg: "gray.500", transform: 'translateY(-5px)',
-                                            transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}} onClick={()=> setTabOption(3)}>
-                            <Center>
-                                <BellIcon boxSize={5} color='#8e24aa'  mt={3}/>
-                            </Center>
-                        </GridItem>
-                    </Tooltip>
-                </Grid> */}
-
                 <Center>
                     <Box d="flex"  mt={{base:12,sm:12, md:10, lg:12}}>
                         <Tooltip hasArrow label='Logout' bg='#E1BEE7' color="#7b1fa2" placement='right-start'>
