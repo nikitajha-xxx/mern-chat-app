@@ -159,16 +159,16 @@ const MyChats = ({}) => {
                                                                 
                                                         >
 
-                                                            <GridItem pl='2' area={'nav'} onClick={(event)=>{event.stopPropagation()}}>
+                                                            <GridItem pl='2' area={'nav'}>
                                                                 {
                                                                     !chat.isGroupChat ?
-                                                                        <ProfileModal user={getSenderUser(loggedUser, chat.users)} >
-                                                                            {getAvatar(chat)}
-                                                                        </ProfileModal>
+                                                                        // <ProfileModal user={getSenderUser(loggedUser, chat.users)} >
+                                                                            getAvatar(chat)
+                                                                        // </ProfileModal>
                                                                     :
-                                                                        <UpdateGroupChatModel chat={chat} fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}>
-                                                                            {getAvatar(chat)}
-                                                                        </UpdateGroupChatModel>
+                                                                        // <UpdateGroupChatModel chat={chat} fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}>
+                                                                            getAvatar(chat)
+                                                                        // </UpdateGroupChatModel>
 
                                                                 }
                                                                
