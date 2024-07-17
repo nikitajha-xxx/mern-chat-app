@@ -3,7 +3,7 @@ import { ChatState } from '../Context/ChatProvider'
 import {Box, Text, Center,ScaleFade,Tooltip, HStack} from '@chakra-ui/react'
 import ChatInLogo from '../assets/ChatInLogo.jpg'
 import { getSender } from '../config/ChatLogics'
-import { ArrowLeftIcon } from '@chakra-ui/icons'
+import { ArrowLeftIcon,ViewIcon } from '@chakra-ui/icons'
 
 const SingleChat = () => {
     const {fetchAgain, setFetchAgain,user,selectedChat,setSelectedChat} = ChatState()
@@ -13,22 +13,37 @@ const SingleChat = () => {
             {selectedChat ?
                 
                     <ScaleFade initialScale={0.9} in={true}>
+                        <Box bg='#E1BEE7'  borderTopLeftRadius="25" borderTopRightRadius="25" pb={{base:selectedChat?"3%" : "", sm:selectedChat?"3%":"",md:"0%"}}>
+                            
                         <HStack spacing={"6px"}>
-                            <Box mt={{base:selectedChat ? "6%" : "0%" , sm: selectedChat ? "6%" : "0%", md:"0%"}}  ml={{base:selectedChat ? "3%" : "0%" , sm: selectedChat ? "3%" : "0%", md:"0%"}} display={{base: selectedChat ? "block" : "none",sm: selectedChat ? "block" : "none", md:"none"}}>
-                            <Tooltip hasArrow label='Go Back' bg='white' color="#7b1fa2">
-                                <Box bg="#E1BEE7" color="#8e24aa" cursor="pointer" className='circle' w={"27px"} h={"26px"} onClick={()=>setSelectedChat(null)}>
+                            {/* <Box mt={{base:selectedChat ? "6%" : "0%" , sm: selectedChat ? "6%" : "0%", md:"0%"}}  ml={{base:selectedChat ? "3%" : "0%" , sm: selectedChat ? "3%" : "0%", md:"0%"}} display={{base: selectedChat ? "block" : "none",sm: selectedChat ? "block" : "none", md:"none"}}> */}
+                            <Box  ml={{base:selectedChat ? "6%" : "",sm:selectedChat ? "4%" : "", md:""}} mt={{base:selectedChat?"1%":"",sm:selectedChat? "2%" : "",md:""}} display={{base: selectedChat ? "block" : "none",sm: selectedChat ? "block" : "none", md:"none"}}>
+                                
+                                <Box cursor="pointer">
                                     
-                                        <ArrowLeftIcon cursor="pointer" style={{marginLeft:"26%", marginTop:"-3%", fontSize:"13px"}}/>
-                                   
+                                        <ArrowLeftIcon color="#8e24aa" cursor="pointer" style={{fontSize:"13px"}} onClick={()=>setSelectedChat(null)}/>
+                                
                                 </Box>
-                                </Tooltip>
+                                
                             </Box>
-                            <Box ml={{base:selectedChat ? "-7%" : "" , sm: selectedChat ? "-4%" : "", md:"1%"}} mt={{base:selectedChat ? "-2%" : "", sm: selectedChat ? "0%" : "", md:"0%"}}>
-                                <Text fontSize={{base:selectedChat ? "lg" : "" , sm: selectedChat ? "lg" : "", md:"3xl"}} fontFamily="Work sans" color={"#7b1fa2"} pt={6} px={6} style={{fontWeight:"500"}}>
+                            {/* <Box ml={{base:selectedChat ? "-7%" : "" , sm: selectedChat ? "-4%" : "", md:"1%"}} mt={{base:selectedChat ? "-2%" : "", sm: selectedChat ? "0%" : "", md:"0%"}}> */}
+                            <Box w={"93%"}  mt={{base:selectedChat ? "-5%" : "", sm: selectedChat ? "-3%" : "", md:"2%"}} ml={{base:selectedChat ? "-4%" : "" , sm: selectedChat ? "-3%" : "", md:"0%"}}>
+                                {/* <Text fontSize={{base:selectedChat ? "lg" : "" , sm: selectedChat ? "lg" : "", md:"3xl"}} mt={{md:"-4%"}} fontFamily="Work sans" color={"#7b1fa2"} pt={6} px={6} style={{fontWeight:"500"}}> */}
+                                <Text fontSize={{base:selectedChat ? "lg" : "" , sm: selectedChat ? "lg" : "", md:"3xl"}} mt={{md:"-4%"}} fontFamily="Work sans" color={"#7b1fa2"} pt={6} px={6} style={{fontWeight:"500"}}>
                                     {selectedChat.isGroupChat ? selectedChat.chatName : getSender(user, selectedChat.users)}
                                 </Text>
                             </Box>
+                            <Box w={"8%"} ml={{base:selectedChat?"-16%":"",sm:(selectedChat ? "-10%" : ""),md:"-2%"}} mt={{base:selectedChat?"1%" : "",sm:"",md:"0%"}}>
+                                <Tooltip hasArrow label='View Profile' bg='white' color="#7b1fa2">
+                                    <Box  cursor="pointer">
+                                        
+                                            <ViewIcon color="#7b1fa2" mt={"15%"} ml={"-10%"} fontSize={{base:selectedChat? "21px" : "",sm:selectedChat ? "21px" : "",md:"25px"}} cursor="pointer" />
+                                    
+                                    </Box>
+                                </Tooltip>
+                            </Box>
                         </HStack>
+                        </Box>
                     </ScaleFade>
                 
                 :
