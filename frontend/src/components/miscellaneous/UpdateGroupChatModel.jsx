@@ -1,7 +1,8 @@
-import React,{useState} from 'react'
-import { useDisclosure, useToast,Box, Center,HStack,Input,Spinner} from '@chakra-ui/react'
+import React,{useState,useCallback} from 'react'
+import { useDisclosure, useToast,Box, Center,HStack,Input,Spinner,InputGroup,InputLeftElement} from '@chakra-ui/react'
 import { ChatState } from '../../Context/ChatProvider'
 import UserBadgeItem from '../UserAvatar/UserBadgeItem'
+import {debounce} from 'lodash';
 import {
     Modal,
     ModalOverlay,
@@ -16,7 +17,7 @@ import {
 import { CheckIcon, CloseIcon,SmallCloseIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 
-const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
+const UpdateGroupChatModel = ({fetchAgain,setFetchAgain,children}) => {
 
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
@@ -26,6 +27,7 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
     // const [addGroup, setAddGroup] = useState(false)
     // const [groupPic, setGroupPic] = useState(GroupProfilePicture)
     // const [imageloading, setImageloading] = useState(false)
+    const [loadingUsers, setLoadingUsers] = useState(false)
     const [renameLoading, setRenameLoading] = useState(false)
 
     const {selectedChat, setSelectedChat, user} = ChatState()
@@ -37,6 +39,8 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
     const handleRemove = ()=>{
 
     }
+
+    const timeout = 500
 
     const handleRename = async()=>{
         if(!groupChatName) return
@@ -54,18 +58,55 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
                 },
                 config
             )
+
+            setSelectedChat(data)
         }catch(error){
             toast({
-                title:"Failed to Create Chat",
-                description:e.response.data,
+                title:"Error Occured!",
+                description:e.response.data.message,
 				status:"error",
 				duration:5000,
 				isClosable:true,
 				position:"top"
             })
         }
+        setGroupChatName('')
+        setEditGroupName(false)
+        setRenameLoading(false)
         
     }
+
+    const handleSearch = async (query)=>{
+        if(query){
+            try{
+                setLoadingUsers(true)
+                const config = {
+                    headers:{
+                        Authorization:`Bearer ${user.token}`
+                    }
+                }
+                const {data} = await axios.get(`http://localhost:5555/api/user?search=${query}`,config)
+                let selectedUsersIds = selectedUsers.map(a=>a._id)
+                let filteredData = selectedUsersIds.length > 0 ? data.filter(a=> !selectedUsersIds.includes(a._id)) : data
+                setLoadingUsers(false)
+                setSearchResult(filteredData)
+            }catch(err){
+                toast({
+                    title:"Error Occured",
+                    description:err.message,
+                    status:"error",
+                    duration:5000,
+                    isClosable:true,
+                    position:"top"
+                })
+                setLoadingUsers(false)
+            }
+        }else{
+            setSearchResult([])
+        }
+    }
+
+    const debouncedHandledSearch = useCallback(debounce(handleSearch, timeout),[])
 
     return (
         <>
@@ -83,24 +124,28 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
                 <ModalOverlay />
                 <ModalContent h="410px">
                 {/* <ModalHeader fontSize="40px" fontFamily="Work sans" justifyContent="center" style={{display:"flex"}}>{user.name}</ModalHeader> */}
-                <CloseIcon onClick={onClose}  style={{cursor:"pointer",marginLeft:"92%", marginTop:"4%"}}/>
-                <ModalBody mt={35} flexDir="column" alignItems="center" justifyContent="space-between" style={{display:"flex",paddingBottom:"18%"}}>
-                    <Image borderRadius="full" boxSize="180px" src={chat.picture} alt={chat.chatName} style={{objectFit:"cover"}}/>
+                <CloseIcon onClick={onClose}  style={{cursor:"pointer",marginLeft:"92%", marginTop:"2%"}}/>
+                <ModalBody mt={0} flexDir="column" alignItems="center" justifyContent="space-between" style={{display:"flex",paddingBottom:"18%"}}>
+                    <Image borderRadius="full" boxSize="150px" src={selectedChat.picture} alt={selectedChat.chatName} style={{objectFit:"cover"}}/>
                     {
                         !editGroupName ?
-                        <HStack>
-                            <Box ml={"10%"}>
-                                <Text pt={3} fontSize={{base:"28px", md:"30px"}} fontFamily="Work sans">{chat.chatName}</Text>
+                        // <HStack mt={"-2%"}>
+                        <>
+                            <Box ml={"4%"}>
+                                <Text style={{float:"left"}} pt={3} fontSize={{base:"23px", md:"25px"}} fontFamily="Work sans">{selectedChat.chatName}
+                                {/* <i class="fa-solid fa-pen" ml={"1%"}  style={{cursor:"pointer",color:'#8e24aa',fontSize:"16px"}} onClick={(e)=>setEditGroupName(true)}></i> */}
+                                </Text>
+                                <i class="fa-solid fa-pen"  style={{cursor:"pointer",color:'#8e24aa',position:"relative", top:"17%", left:'4%'}} onClick={(e)=>setEditGroupName(true)}></i>
                             </Box>
-                            <Box>
+                            {/* <Box>
                                 <i class="fa-solid fa-pen"  style={{cursor:"pointer",color:'#8e24aa'}} onClick={(e)=>setEditGroupName(true)}></i>
-                            </Box>
-                        
-                        </HStack>
+                            </Box> */}
+                        </>
+                        // </HStack>
                         :
                         <Box w={"100%"}>
                             <HStack>
-                                <Box w={"50%"} ml={"29%"} pt={5}>
+                                <Box w={"50%"} ml={"29%"}>
                                     <Input
                                         focusBorderColor='#E1BEE7' 
                                         placeholder='Group Name'
@@ -108,6 +153,7 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
                                         variant='flushed'
                                         borderColor="#E1BEE7"
                                         _placeholder={{ paddingLeft:"25%" }}
+                                        readOnly={renameLoading ? true : false}
                                     />
                                 </Box>
                                 {
@@ -121,7 +167,7 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
                                         </Box>
                                     </>
                                     :
-                                        <Spinner ml={"3%"} mt={"5%"} size='sm' color='#7b1fa2' />
+                                        <Spinner ml={"3%"} mt={"2%"} size='sm' color='#7b1fa2' />
                                 }
                                 
                             </HStack>
@@ -130,11 +176,22 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
                     }
                     
                     
-                    <Text pt={editGroupName ? 3 : ''} ml={"3%"} fontSize={{base:"14px", md:"16px"}} fontFamily="Work sans">{`Group . ${chat.users.length} Members`}</Text>
-                    <Box pt={5} pb={editGroupName ? 10 : ''}>
-                        <Center>
+                    <Text mt={renameLoading ? "1%" : "-1%"} ml={"4%"} fontSize={{base:"14px", md:"15px"}} fontFamily="Work sans">{`Group . ${selectedChat.users.length} Members`}</Text>
+                    <Box w="100%" mt={5} pb={3} overflowY="scroll"
+                        sx={{
+                            '&::-webkit-scrollbar': {
+                            width: '16px',
+                            borderRadius: '30px 30px 25px 30px',
+                            backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                            },
+                            '&::-webkit-scrollbar-thumb': {
+                            borderRadius: '30px 30px 35px 30px',
+                            backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                            },
+                        }} style={{height:"12vh"}}>
+                        {/* <Center> */}
                             {
-                                chat?.users?.map((u)=>(
+                                selectedChat?.users?.map((u)=>(
                                     <UserBadgeItem
                                         key={u._id}
                                         user={u}
@@ -144,8 +201,20 @@ const UpdateGroupChatModel = ({chat,fetchAgain,setFetchAgain,children}) => {
                                     
                                 ))
                             }
-                        </Center>
+                        {/* </Center> */}
                     </Box>
+                    <InputGroup padding={5}>
+                        <InputLeftElement width={'4.5rem'} m={"22px 2px 2px 0px"}>
+                            <i className='fas fa-search' style={{ cursor:"pointer", color:'#8e24aa'}}></i>
+                        </InputLeftElement>
+                        <Input 
+                            focusBorderColor='purple'
+                            placeholder='Search'
+                            onChange={(e)=>debouncedHandledSearch(e.target.value)}
+                            variant='flushed'
+                        />
+                        
+                    </InputGroup>
                 </ModalBody>
 
                 <ModalFooter flexDir="column" alignItems="center" style={{display:"flex"}}>

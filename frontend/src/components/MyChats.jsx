@@ -140,7 +140,7 @@ const MyChats = ({}) => {
                                                 bg={ !selectedChat ? "white" : selectedChat._id === chat._id ? "#E1BEE7" : "white"}
                                                 color={ !selectedChat ? "black" : selectedChat._id === chat._id ? "#7b1fa2" : "black"}
                                                 w={"90%"}
-                                                m="3px 0px 3px 20px"
+                                                m="6px 0px 6px 20px"
                                                 borderRadius={"lg"}
                                                 key={chat._id}
                                                 h={"60px"}
