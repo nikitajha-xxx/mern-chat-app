@@ -3,7 +3,7 @@ import { Badge,Text } from '@chakra-ui/react'
 import { CloseIcon } from '@chakra-ui/icons'
 
 
-const UserBadgeItem = ({user, handleFunction,basic}) => {
+const UserBadgeItem = ({user, handleFunction,basic,disabled=false}) => {
     return (
         <Badge
             px={2}
@@ -22,7 +22,10 @@ const UserBadgeItem = ({user, handleFunction,basic}) => {
         >
             <Text fontSize="sm" style={{fontWeight:"500"}} fontFamily="PT Sans">
                 {user.name}
-                <CloseIcon pl={2}/>
+                {
+                    !disabled && <CloseIcon pl={2}/>
+                }
+                
             </Text>
             
         </Badge>

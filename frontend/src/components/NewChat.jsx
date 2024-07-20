@@ -120,6 +120,9 @@ const NewChat = () => {
                                                 key={user._id}
                                                 user={user}
                                                 handleFunction={()=>accessChat(user._id)}
+                                                hover={{ bg: "#E1BEE7",color:"#7b1fa2", transform: 'translateY(-5px)',
+                                                    transitionDuration: '0.4s',transitionTimingFunction: "ease-in-out"}}
+                                                groupHover={{color: '#7b1fa2' }}
                                             />
                                         ))
                                     }

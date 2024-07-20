@@ -5,7 +5,19 @@
 } */
 body{
   overflow-y: hidden;
+  
+    
 }
+
+
+
+
+
+button:focus{
+  box-shadow: none !important;
+  outline: none;
+}
+
 .App {
   min-height: 100vh;
   display: flex;
@@ -92,5 +104,30 @@ body{
   border-radius: 50%;
   margin: auto
 }
+
+/* * {
+  scrollbar-width: auto;
+  scrollbar-color: transparent var(--primary);
+} */
+
+*::-webkit-scrollbar {
+  width: 16px;
+  border-radius: 30px 30px 25px 30px;
+  background-color: rgba(247, 248, 250,0.09)
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 30px 30px 25px 30px;
+  /* background-color: #f7f8fa */
+  background-color: rgba(247, 248, 250,0.09);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 30px 30px 35px 30px;
+  background-color: gray
+  /* background-color: rgba(247, 248, 250,0.05); */
+}
+
+
 
 

@@ -2,9 +2,11 @@ import React from 'react'
 import { ChatState } from '../Context/ChatProvider'
 import {Box, Text, Center,ScaleFade,Tooltip, HStack} from '@chakra-ui/react'
 import ChatInLogo from '../assets/ChatInLogo.jpg'
-import { getSender } from '../config/ChatLogics'
+import { getSender,getSenderUser } from '../config/ChatLogics'
 import { ArrowLeftIcon,ViewIcon } from '@chakra-ui/icons'
 import UpdateGroupChatModel from './miscellaneous/UpdateGroupChatModel'
+import ProfileModal from './miscellaneous/ProfileModal'
+
 
 const SingleChat = () => {
     const {fetchAgain, setFetchAgain,user,selectedChat,setSelectedChat} = ChatState()
@@ -36,9 +38,17 @@ const SingleChat = () => {
                             </Box>
                             <Box w={"8%"} ml={{base:selectedChat?"-16%":"",sm:(selectedChat ? "-10%" : ""),md:"-2%"}} mt={{base:selectedChat?"1%" : "",sm:"",md:"0%"}}>
                                     <Box  cursor="pointer">
-                                        <UpdateGroupChatModel fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}>
-                                            <ViewIcon color="#7b1fa2" mt={"15%"} ml={"-10%"} fontSize={{base:selectedChat? "21px" : "",sm:selectedChat ? "21px" : "",md:"25px"}} cursor="pointer" />
-                                        </UpdateGroupChatModel>
+                                        {
+                                            selectedChat.isGroupChat ?
+                                                <UpdateGroupChatModel fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}>
+                                                    <ViewIcon color="#7b1fa2" mt={"15%"} ml={"-10%"} fontSize={{base:selectedChat? "21px" : "",sm:selectedChat ? "21px" : "",md:"25px"}} cursor="pointer" />
+                                                </UpdateGroupChatModel>
+                                            :
+                                                <ProfileModal user={getSenderUser(user, selectedChat.users)} >
+                                                    <ViewIcon color="#7b1fa2" mt={"15%"} ml={"-10%"} fontSize={{base:selectedChat? "21px" : "",sm:selectedChat ? "21px" : "",md:"25px"}} cursor="pointer" />
+                                                </ProfileModal>
+                                        }
+                                        
                                     </Box>
                             </Box>
                         </HStack>
