@@ -2,12 +2,13 @@ if (process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
 
-var express     = require('express')
-    app         = express()
-    cors        = require('cors')
-    mongoose    = require('mongoose')
-    userRoutes  = require('./routes/userRoutes')
-    chatRoutes  = require('./routes/chatRoutes')
+var express       = require('express')
+    app           = express()
+    cors          = require('cors')
+    mongoose      = require('mongoose')
+    userRoutes    = require('./routes/userRoutes')
+    chatRoutes    = require('./routes/chatRoutes')
+    messageRoutes = require('./routes/messageRoutes')
 
 const {notFound, errorHandler} = require('./middleware/errorMiddleware')
 
@@ -31,6 +32,9 @@ app.use('/api/user', userRoutes)
 
 //ALL CHAT ROUTES
 app.use('/api/chat', chatRoutes)
+
+//MESSAGE ROUTES
+app.use('/api/message', messageRoutes)
 
 app.use(notFound) //middleware to handle route not found
 app.use(errorHandler) //middleware to handle to throw any kind of error for the requested url
