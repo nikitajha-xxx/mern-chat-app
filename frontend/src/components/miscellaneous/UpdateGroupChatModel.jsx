@@ -18,7 +18,7 @@ import {
 import { CheckIcon, CloseIcon,SmallCloseIcon,ArrowRightIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 
-const UpdateGroupChatModel = ({fetchAgain,setFetchAgain,children}) => {
+const UpdateGroupChatModel = ({fetchAgain,setFetchAgain,fetchMessages,children}) => {
 
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
@@ -55,6 +55,7 @@ const UpdateGroupChatModel = ({fetchAgain,setFetchAgain,children}) => {
                 )
                 user1._id == user._id ? setSelectedChat() : setSelectedChat(data)
                 setFetchAgain(!fetchAgain)
+                fetchMessages()
                 setRemoveUserLoading(false)
             }catch(error){
                 toast({
