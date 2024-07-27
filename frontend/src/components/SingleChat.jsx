@@ -141,23 +141,23 @@ const SingleChat = () => {
                                     loading ? 
                                         <Spinner color='#7b1fa2' size={"xl"} w={20} h={20} alignSelf={"center"} margin={"auto"}/>
                                     :
-                                        <Box style={{display:"flex",flexDirection:"column"}} overflowY="scroll"
+                                        <Box overflowY="scroll" pr={"10px"}
                                         sx={{
                                             '&::-webkit-scrollbar': {
-                                            width: '16px',
-                                            borderRadius: '30px 30px 25px 30px',
-                                            backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                                                width: '0px',
+                                                borderRadius: '30px 30px 25px 30px',
+                                                backgroundColor: `rgba(0, 0, 0, 0.05)`,
                                             },
                                             '&::-webkit-scrollbar-thumb': {
-                                            borderRadius: '30px 30px 35px 30px',
-                                            backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                                                borderRadius: '30px 30px 35px 30px',
+                                                backgroundColor: `rgba(0, 0, 0, 0.05)`,
                                             },
                                         }}>
                                             <ScrollableChat messages={messages} />
                                         </Box>
                                 }
                                 <FormControl onKeyDown={sendMessage} isRequired>
-                                    <Input focusBorderColor="#8e24aa" borderRadius={"25"} bg="#E0E0E0" variant="filled" placeholder='Enter a message..' onChange={typingHandler} value={newMessage}/>   
+                                    <Input focusBorderColor="#8e24aa" mt="2%" borderRadius={"25"} bg="#E0E0E0" variant="filled" placeholder='Enter a message..' onChange={typingHandler} value={newMessage}/>   
                                 </FormControl>
                             </Box>
                         </Box>

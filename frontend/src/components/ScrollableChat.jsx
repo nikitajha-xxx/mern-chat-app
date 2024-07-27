@@ -25,10 +25,12 @@ const ScrollableChat = ({messages}) => {
                             </Tooltip>
                         )
                     }
-                    <span style={{color:"#7b1fa2",backgroundColor:`${m.sender._id == user._id ? "#E0E0E0" : "#E1BEE7"}`, 
+                    <span style={{backgroundColor:`${m.sender._id == user._id ? "#E1BEE7" : "#9819c8"}`, 
                         borderRadius:"20px", padding:"5px 15px", maxWidth:"75%",
                         marginLeft: isSameSenderMargin(messages,m,i,user._id),
-                        marginTop: isSameUser(messages, m,i,user._id) ? 3 : 10
+                        marginTop: isSameUser(messages, m,i,user._id) ? 7 : 12,
+                        color: `${m.sender._id == user._id ? "#7b1fa2" : "#e6e7ed"}`,
+                        fontFamily:"PT Sans", fontSize:"14px", fontWeight:"500"
                     }}>
                     {
                         m.content
