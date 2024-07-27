@@ -111,7 +111,7 @@ button:focus{
 } */
 
 *::-webkit-scrollbar {
-  width: 16px;
+  width: 0px;
   border-radius: 30px 30px 25px 30px;
   background-color: rgba(247, 248, 250,0.09)
 }

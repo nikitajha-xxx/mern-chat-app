@@ -8,16 +8,42 @@ import UpdateGroupChatModel from './miscellaneous/UpdateGroupChatModel'
 import ProfileModal from './miscellaneous/ProfileModal'
 import ScrollableChat from './ScrollableChat'
 import axios from 'axios'
+import io from 'socket.io-client'
+import lottie from 'react-lottie'
+import Lottie from 'react-lottie'
+import animationData from '../animations/typing.json'
 
-
+const ENDPOINT = 'http://localhost:5555';
+var socket, selectedChatCompare;
 
 const SingleChat = () => {
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState()
+    const [socketConnected, setSocketConnected] = useState(false)
+    const [typing,setTyping] = useState(false)
+    const [isTyping,setIsTyping] = useState(false)
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+          preserveAspectRatio: "xMidYMid slice",
+        },
+    };
+
     const {fetchAgain, setFetchAgain,user,selectedChat,setSelectedChat} = ChatState()
 
     const toast = useToast();
+
+    useEffect(()=>{
+        socket = io(ENDPOINT);
+        socket.emit("setup", user); //emit socket 'setup' with the user object which is added in the backend
+        socket.on("connected",()=>setSocketConnected(true))
+        socket.on("typing",()=>setIsTyping(true))
+        socket.on("stop typing",()=>setIsTyping(false))
+    }, [])
     
     const fetchMessages = async()=>{
         if(!selectedChat) return
@@ -32,6 +58,7 @@ const SingleChat = () => {
             const {data} = await axios.get(`http://localhost:5555/api/message/${selectedChat._id}`, config)
             setMessages(data)
             setLoading(false)
+            socket.emit("join chat", selectedChat._id)// with the id of the chat current user joins a new room
         }catch(error){
             toast({
                 title: "Error Occured!",
@@ -46,14 +73,33 @@ const SingleChat = () => {
 
     useEffect(()=>{
         fetchMessages();
+        selectedChatCompare = selectedChat
     }, [selectedChat])
 
     const typingHandler = (e)=>{
         setNewMessage(e.target.value)
+
+        if(!socketConnected) return
+
+        if(!typing){
+            setTyping(true)
+            socket.emit("typing",selectedChat._id)
+        }
+        let lastTypingTime = new Date().getTime()
+        var timerLength = 3000
+        setTimeout(()=>{
+            var timeNow = new Date().getTime()
+            var timeDiff = timeNow - lastTypingTime
+            if(timeDiff >= timerLength && typing){
+                socket.emit("stop typing", selectedChat._id)
+                setTyping(false)
+            }
+        },timerLength)
     }
 
     const sendMessage = async(e) => {
         if(e.key == "Enter" && newMessage){
+            socket.emit("stop typing", selectedChat._id)
             try{
                 const config = {
                     headers: {
@@ -66,6 +112,7 @@ const SingleChat = () => {
                     chatId:selectedChat._id
                 },config)
                 setNewMessage('')
+                socket.emit("new message", data)
                 setMessages([...messages, data])
             }catch(error){
                 toast({
@@ -79,6 +126,16 @@ const SingleChat = () => {
             }
         }
     }
+
+    useEffect(()=>{
+        socket.on("message recieved",(newMessageReceived)=>{
+            if(!selectedChatCompare || selectedChatCompare._id != newMessageReceived.chat._id){
+                //give notification
+            }else{
+                setMessages([...messages, newMessageReceived])
+            }
+        })
+    })
 
     
     return (
@@ -141,7 +198,7 @@ const SingleChat = () => {
                                     loading ? 
                                         <Spinner color='#7b1fa2' size={"xl"} w={20} h={20} alignSelf={"center"} margin={"auto"}/>
                                     :
-                                        <Box overflowY="scroll" pr={"10px"}
+                                        <Box overflowY="scroll" pr={"10px"} style={{display:"flex", flexDirection:"column"}}
                                         sx={{
                                             '&::-webkit-scrollbar': {
                                                 width: '0px',
@@ -157,6 +214,12 @@ const SingleChat = () => {
                                         </Box>
                                 }
                                 <FormControl onKeyDown={sendMessage} isRequired>
+                                    {isTyping ? 
+                                        <div>
+                                            <Lottie width={66} style={{marginLeft:"5%"}} options={defaultOptions} />
+                                        </div> 
+                                        : (<></>)
+                                    }
                                     <Input focusBorderColor="#8e24aa" mt="2%" borderRadius={"25"} bg="#E0E0E0" variant="filled" placeholder='Enter a message..' onChange={typingHandler} value={newMessage}/>   
                                 </FormControl>
                             </Box>
