@@ -61,7 +61,7 @@ var listener = app.listen(PORT, function(){
 const io = require('socket.io')(listener,{
     pingTimeout:60000, //amount of time socket will wait while being inactive
     cors:{
-        origin: "http://localhost:5173",
+        origin: "https://chatin-6b4t.onrender.com",
     }
 })
 
