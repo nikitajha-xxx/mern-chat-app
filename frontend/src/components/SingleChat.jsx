@@ -141,7 +141,6 @@ const SingleChat = () => {
         })
     })
 
-    console.log("notifications",notifications )
     return (
         <>
             {selectedChat ?

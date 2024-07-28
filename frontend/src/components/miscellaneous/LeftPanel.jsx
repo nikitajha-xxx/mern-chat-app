@@ -20,9 +20,6 @@ const LeftPanel = () => {
         navigate("/")
     }
 
-    useEffect(() => {
-        console.log("width of inner height", window.innerHeight)
-    },[])
 
     const getUniqueChats = ()=>{
         let chat_ids = notifications.map(n => n.chat._id);

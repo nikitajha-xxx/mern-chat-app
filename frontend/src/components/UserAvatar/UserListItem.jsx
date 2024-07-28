@@ -4,7 +4,6 @@ import ProfileModal from '../miscellaneous/ProfileModal'
 import { ChatState } from '../../Context/ChatProvider'
 
 const UserListItem = ({user, handleFunction,selected, in_group,hover,showCheckbox,groupHover}) => {
-    console.log("selected",selected,hover)
     return (
         <Box
             onClick={handleFunction}

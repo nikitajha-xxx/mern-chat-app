@@ -70,7 +70,6 @@ const AddGroupChat = () => {
     const debouncedHandledSearch = useCallback(debounce(handleSearch, timeout),[selectedUsers])
 
     const postDetails = (pics) => {
-		console.log("checkkkkk if func getting called", pics)
 		setImageloading(true)
 		if(pics === undefined){
 			toast({
@@ -95,7 +94,6 @@ const AddGroupChat = () => {
 				setGroupPic(data.url.toString());
 				setImageloading(false)
 			}).catch((err)=>{
-				console.log(err)
 				setImageloading(false)
 			})
 		}else{
@@ -112,7 +110,6 @@ const AddGroupChat = () => {
 	}
 
     const handleSubmit = async ()=>{
-        console.log("selectedUsers", selectedUsers)
         if(!groupChatName || !selectedUsers){
             toast({
                 title:"Please Give a Group Name",
@@ -161,7 +158,6 @@ const AddGroupChat = () => {
             return
         }
     }
-    console.log("selectedUsers1", selectedUsers)
     return (
         <Box bg="white" w={{base: "70%",sm:"60%", md:"30%" }} style={{height:"95vh"}} m="20px 0px 11px 20px"   borderWidth={"0"} color={'black'} borderRadius="25">
             <ScaleFade initialScale={0.9} in={true}>

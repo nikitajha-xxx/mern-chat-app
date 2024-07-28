@@ -169,7 +169,6 @@ const UpdateGroupChatModel = ({fetchAgain,setFetchAgain,fetchMessages,children})
             if(!chat_user){
                 let user_selected = selectedUsers.find(a=>a._id == user._id)
                 if(user_selected){
-                    console.log(selectedUsers.filter(a=>a._id != user._id))
                     setSelectedUsers(selectedUsers.filter(a=>a._id != user._id))
                 }else{
                     setSelectedUsers([...selectedUsers, user])

@@ -31,7 +31,6 @@ const MyChats = ({}) => {
             const {data} = await axios.get(`http://localhost:5555/api/chat`,config)
             setChats(data)
             setLoadingChat(false)
-            console.log("chats", data)
         }catch{
             toast({
                 title:"Error Occured",
@@ -47,7 +46,6 @@ const MyChats = ({}) => {
 
     const handleSearch = async (query) =>{
         // fetch search results from API or database
-        console.log("handle search gets called",query)
         try{
             setLoadingChat(true)
             const config = {
@@ -84,7 +82,6 @@ const MyChats = ({}) => {
     />)
 
     useEffect(()=>{
-        console.log("use effect of mychats",loggedUser, chats,selectedChat)
         setLoggedUser(JSON.parse(localStorage.getItem("userInfo")))
         fetchChats()
     },[fetchAgain])

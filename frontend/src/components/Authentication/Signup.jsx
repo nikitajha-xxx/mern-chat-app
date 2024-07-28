@@ -22,7 +22,6 @@ const Signup = () => {
 	const handleClick = () => setShow(!show)
 	
 	const postDetails = (pics) => {
-		console.log("checkkkkk if func getting called", pics)
 		setImageloading(true)
 		if(pics === undefined){
 			toast({
@@ -47,7 +46,6 @@ const Signup = () => {
 				setPic(data.url.toString());
 				setImageloading(false)
 			}).catch((err)=>{
-				console.log(err)
 				setImageloading(false)
 			})
 		}else{
