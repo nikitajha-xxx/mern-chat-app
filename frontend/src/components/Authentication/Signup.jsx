@@ -127,7 +127,7 @@ const Signup = () => {
 				<label className="label">
 					<input type="file" onChange={(e)=>postDetails(e.target.files[0])}/>
 					<figure className="personal-figure">
-					<img src={pic} className="personal-avatar" alt="avatar" />
+					<img style={{objectFit:"cover"}} src={pic} className="personal-avatar" alt="avatar" />
 					{
 						imageloading &&
 						<figcaption className='loader-figcaption'>
