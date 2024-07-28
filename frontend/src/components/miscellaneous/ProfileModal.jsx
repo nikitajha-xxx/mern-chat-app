@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useDisclosure } from '@chakra-ui/react'
 import {
     Modal,
@@ -8,13 +8,15 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    Button,Image, Text
+    Button,Image, Text,Spinner,useToast
   } from '@chakra-ui/react'
-
 import { CloseIcon } from '@chakra-ui/icons'
 
 const ProfileModal = ({user,children}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const toast = useToast()
+
     return (
         <>
             {
@@ -30,11 +32,11 @@ const ProfileModal = ({user,children}) => {
             <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
                 <ModalOverlay />
                 <ModalContent h="410px">
-                {/* <ModalHeader fontSize="40px" fontFamily="Work sans" justifyContent="center" style={{display:"flex"}}>{user.name}</ModalHeader> */}
                 <CloseIcon onClick={onClose}  style={{cursor:"pointer",marginLeft:"92%", marginTop:"4%"}}/>
                 <ModalBody mt={35} flexDir="column" alignItems="center" justifyContent="space-between" style={{display:"flex",paddingBottom:"18%"}}>
                     <Image style={{objectFit:"cover"}} borderRadius="full" boxSize="150px" src={user.picture} alt={user.name}/>
                     <Text pt={3} fontSize={{base:"28px", md:"30px"}} fontFamily="Work sans">{user.name}</Text>
+                    <Text fontSize={{base:"14px", md:"15px"}} fontFamily="Work sans">{user.email}</Text>
                 </ModalBody>
 
                 <ModalFooter flexDir="column" alignItems="center" style={{display:"flex"}}>

@@ -20,6 +20,7 @@ const Signup = () => {
 	const navigate = useNavigate();
 
 	const handleClick = () => setShow(!show)
+	
 	const postDetails = (pics) => {
 		console.log("checkkkkk if func getting called", pics)
 		setImageloading(true)
@@ -61,6 +62,7 @@ const Signup = () => {
 			return
 		}
 	}
+
 	const submitHandler = async()=>{
 		setLoading(true)
 		if(!name || !email || !password || !confirmpassword){

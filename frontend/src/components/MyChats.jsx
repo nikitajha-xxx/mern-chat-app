@@ -177,9 +177,12 @@ const MyChats = ({}) => {
                                                                 <Text fontSize="lg" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden",overflowY:"hidden"}}  fontFamily="PT Sans">{chat.isGroupChat ? chat.chatName : getSender(loggedUser, chat.users)}</Text>
                                                             </GridItem>
                                                             <GridItem pt="0" pl='2'  area={'footer'} style={{whiteSpace:"nowrap", overflowX:"hidden"}}>
+                                                            {chat.latestMessage && (
                                                                 <Text fontSize="sm" style={{fontWeight:"500",textOverflow:"ellipsis",overflowX:"hidden"}} color={!selectedChat ? "gray" : selectedChat._id === chat._id ? "#7b1fa2" : "gray"} _groupHover={{color: '#7b1fa2' }} fontFamily="PT Sans">
-                                                                {d_text}
+                                                                    {chat.isGroupChat && <b>{chat.latestMessage.sender._id == user._id ? "You" : chat.latestMessage.sender.name} : </b>}
+                                                                    {chat.latestMessage.content}
                                                                 </Text>
+                                                            )}
                                                             </GridItem>
                                                         </Grid>
                                                 
