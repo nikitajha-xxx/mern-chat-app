@@ -9,6 +9,7 @@ var express       = require('express')
     userRoutes    = require('./routes/userRoutes')
     chatRoutes    = require('./routes/chatRoutes')
     messageRoutes = require('./routes/messageRoutes')
+    path          = require('path')
 
 const {notFound, errorHandler} = require('./middleware/errorMiddleware')
 
@@ -23,9 +24,7 @@ app.use(express.json({limit: '20mb'})); //for parsing incoming requests with JSO
 //Middleware for handling cors policy
 app.use(cors()) //Allows all origins with default of cors(*)
 
-app.get('/',(req,res)=>{
-    res.state(200).send("Working")
-})
+
 
 //ALL USER ROUTERS
 app.use('/api/user', userRoutes)
@@ -35,6 +34,20 @@ app.use('/api/chat', chatRoutes)
 
 //MESSAGE ROUTES
 app.use('/api/message', messageRoutes)
+
+//deployment
+const __dirname1 = path.resolve()
+if(process.env.NODE_ENV == "production"){
+    app.use(express.static(path.join(__dirname1,"/frontend/dist")))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname1,"frontend","dist", "index.html"))
+    })
+}else{
+    app.get('/',(req,res)=>{
+        res.state(200).send("Working")
+    })
+}
+//deployment
 
 app.use(notFound) //middleware to handle route not found
 app.use(errorHandler) //middleware to handle to throw any kind of error for the requested url
