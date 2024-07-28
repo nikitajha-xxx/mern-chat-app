@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import { ChatState } from '../Context/ChatProvider'
 import {Box, Text, Center,ScaleFade,Tooltip, HStack,Spinner, FormControl,Input,useToast} from '@chakra-ui/react'
-import ChatInLogo from '../assets/ChatInLogo.jpg'
 import { getSender,getSenderUser } from '../config/ChatLogics'
 import { ArrowLeftIcon,ViewIcon } from '@chakra-ui/icons'
 import UpdateGroupChatModel from './miscellaneous/UpdateGroupChatModel'
